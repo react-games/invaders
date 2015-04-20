@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "del": "^1.1.1",
     "gulp-stylus": "^2.0.1",
     "nib": "^1.1.0",
     "react": "^0.13.2",
