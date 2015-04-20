@@ -5,6 +5,7 @@ var del = require('del');
 var browserify = require('browserify');
 var babelify = require('babelify');
 var source = require('vinyl-source-stream');
+var livereload = require('gulp-livereload');
 
 gulp.task('clean', function () {
   del(['dist/**']);
@@ -32,5 +33,12 @@ gulp.task('js', function() {
   .pipe(source('bundle.js'))
   .pipe(gulp.dest('dist/js'));
 });
- 
+
+gulp.task('watch', function(){
+  livereload.listen();
+  gulp.watch('./src/html/*.html', ['html']);
+  gulp.watch('./src/stylus/*.styl', ['css']);
+  gulp.watch('./src/js/*.jsx', ['js']);
+});
+
 gulp.task('default', ['clean', 'html', 'css', 'js']);

@@ -9,14 +9,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.8",
     "del": "^1.1.1",
+    "gulp": "^3.8.11",
+    "gulp-livereload": "^3.8.0",
     "gulp-stylus": "^2.0.1",
     "nib": "^1.1.0",
     "react": "^0.13.2",
     "stylus": "^0.50.0",
-    "babelify": "^6.0.2",
-    "browserify": "^9.0.8",
-    "gulp": "^3.8.11",
     "vinyl-source-stream": "^1.1.0"
   }
 }
