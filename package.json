@@ -1,0 +1,23 @@
+{
+  "name": "react-invaders",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gulp-stylus": "^2.0.1",
+    "nib": "^1.1.0",
+    "react": "^0.13.2",
+    "stylus": "^0.50.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.8",
+    "gulp": "^3.8.11",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
