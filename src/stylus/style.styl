@@ -1,2 +1,44 @@
-div.page
-  background linear-gradient(top, white, pink)
+.page
+  position relative
+  display flex
+
+  .board-wrapper
+    height 30rem
+    width 90%
+    margin 0 auto
+    background linear-gradient(top, white, #eee)
+    border 2px solid green
+    position relative
+
+    &:focus
+      border none
+
+    .board-header
+      font-family monospace
+      font-size 2em
+      background-color #666
+      color #ddd
+      height 1.5em
+      padding 10px
+      border-bottom 2px solid green
+
+    .player-row
+      background-color #ddd
+      height 3em
+      bottom 0
+      left 0
+      width 100%
+      border-top 2px solid green
+      position absolute
+
+      .inner-player-row
+        position relative
+
+        .player
+          position absolute
+          width 0
+          height 0
+          top 5px
+          border-left 30px solid transparent
+          border-right 30px solid transparent
+          border-bottom 40px solid #aaa
