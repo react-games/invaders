@@ -1,7 +1,4 @@
 import React from 'react';
-import HelloWorld from './hello-world';
+import Invaders from './components/invaders';
  
-React.render(
-  <HelloWorld />,
-  document.getElementsByClassName('page')[0]
-)
+React.render(<Invaders />, document.body);
