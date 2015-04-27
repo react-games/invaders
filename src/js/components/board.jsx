@@ -25,7 +25,7 @@ class Board extends React.Component {
 
   render() {
     return (
-      <div className='board-wrapper' onKeyPress={this.props.onKeyPress} tabIndex="0" autoFocus>
+      <div className='board-wrapper'>
         { this.renderHeader() }
         { this.renderPlayerRow() }
       </div>
