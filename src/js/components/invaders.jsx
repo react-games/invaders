@@ -5,15 +5,16 @@ const LEFT = 90; //z
 const RIGHT = 88; //x
 const FIRE = 32; //space
 
-function moveLeft(previousState) {
-  return {
-    playerPosition: previousState.playerPosition > 0 ? previousState.playerPosition - 0.5 : 0
+function move(leftOrRight, prev) {
+  const oldPosition = prev.playerPosition;
+  let newPosition;
+  if (leftOrRight === LEFT) {
+    newPosition = oldPosition > 0 ? oldPosition - 0.5 : 0;
+  } else {
+    newPosition = oldPosition < 95 ? oldPosition + 0.5 : 95;
   }
-}
-
-function moveRight(previousState) {
   return {
-    playerPosition: previousState.playerPosition < 95 ? previousState.playerPosition + 0.5 : 95
+    playerPosition: newPosition
   }
 }
 
@@ -28,10 +29,10 @@ class Invaders extends React.Component {
     document.body.onkeydown = (e) => {
       switch (e.which) {
         case LEFT:
-          this.setState(moveLeft);
+          this.setState(move.bind(null, LEFT));
           break;
         case RIGHT:
-          this.setState(moveRight);
+          this.setState(move.bind(null, RIGHT));
           break;
         case FIRE:
           break;
