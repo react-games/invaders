@@ -1,49 +1,16 @@
 import React from 'react';
+import Shots from './shots.jsx';
+import PlayerPosition from './player.jsx';
+import Header from './header.jsx';
 
-let key=-1;
-
-class Board extends React.Component {
-  renderHeader() {
-    return (
-      <div className='board-header'>
-        <span>{`Score: ${this.props.score}`}</span>
-      </div>
-    )
-  }
-
-  renderShots() {
-    return this.props.shots.map(shot => {
-      return <div className='shot' style={{left: `${shot.x}%`, bottom: shot.y}} key={key++} />
-    });
-  }
-
-  renderBoardBody() {
-    return (
-      <div className='middle-ground'>
-        { this.renderShots() }
-      </div>
-    )
-  }
-
-  renderPlayerRow() {
-    return (
-      <div className='player-row'>
-        <div className='inner-player-row'>
-          <div className='player' style={{left: `${this.props.playerPosition}%`}}/>
-        </div>
-      </div>
-    )
-  }
-
+export default class Board extends React.Component {
   render() {
     return (
       <div className='board-wrapper'>
-        { this.renderHeader() }
-        { this.renderBoardBody() }
-        { this.renderPlayerRow() }
+        <Header score={this.props.score} />
+        <Shots shots={this.props.shots} />
+        <PlayerPosition playerPosition={this.props.playerPosition} />
       </div>
-    );
+    )
   }
 }
-
-export default Board;

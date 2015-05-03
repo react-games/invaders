@@ -19,7 +19,7 @@ function tick(game) {
   makeNewBadGuys(game);
 }
 
-class Invaders extends React.Component {
+export default class Invaders extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -27,7 +27,8 @@ class Invaders extends React.Component {
       playerPosition: 45,
       left: false,
       right: false,
-      shots: []
+      shots: [],
+      badGuys: []
     };
 
     this.loopIntervalMillis = LOOP_INTERVAL_MILLIS;
@@ -44,5 +45,3 @@ class Invaders extends React.Component {
     )
   }
 }
- 
-export default Invaders;
