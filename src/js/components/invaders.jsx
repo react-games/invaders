@@ -1,6 +1,5 @@
 import React from 'react';
 import Board from './board.jsx';
-import Shot from '../items/shot.js';
 
 const LEFT = 90; //z
 const RIGHT = 88; //x
@@ -25,13 +24,10 @@ function moveShip(game) {
 }
 
 function moveShots(game) {
-  const shots = JSON.parse(JSON.stringify(game.state.shots));
+  const shots = game.state.shots;
   let newShots = shots
     .filter(shot => shot.yPosition <= 0)
-    .map(shot => {
-      shot.yPosition = shot.yPosition - 3;
-      return shot
-    });
+    .map(shot => {return {x: shot.x, y: shot.y + 3}});
   game.setState({shots: newShots});
 }
 
@@ -54,7 +50,7 @@ class Invaders extends React.Component {
           return this.setState({right: true});
         case FIRE:
           console.log('shooting!');
-          return this.setState({shots: [new Shot(this.state.playerPosition), ...this.state.shots]});
+          return this.setState({shots: [{x: this.state.playerPosition, y: 0}, ...this.state.shots]});
       }
     };
 
