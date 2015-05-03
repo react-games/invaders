@@ -27,7 +27,7 @@ function moveShots(game) {
   const shots = game.state.shots;
   let newShots = shots
     .filter(shot => shot.y < 700)
-    .map(shot => {return {x: shot.x, y: shot.y + 3}});
+    .map(shot => {return {x: shot.x, y: shot.y + 10}});
   game.setState({shots: newShots});
 }
 
