@@ -8,7 +8,7 @@
     "js": "mkdir -p dist/js && watchify -d -e src/js/index.jsx -t babelify -o dist/js/app.js",
     "css": "mkdir -p dist/css && stylus < src/stylus/style.styl > dist/css/style.css",
     "html": "mkdir -p dist && cp src/html/index.html dist",
-    "browser-sync": "(cd dist && browser-sync start --server --files \".*\")",
+    "browser-sync": "(cd dist && browser-sync start --server --files \"js/app.js, index.html\")",
     "watch": "npm run html & npm run css & npm run js & npm run browser-sync"
   },
   "author": "",
