@@ -1,21 +1,38 @@
 import React from 'react';
 import Board from './board.jsx';
+import Shot from '../items/shot.js';
 
 const LEFT = 90; //z
 const RIGHT = 88; //x
 const FIRE = 32; //space
 
-function move(leftOrRight, prev) {
-  const oldPosition = prev.playerPosition;
-  let newPosition;
-  if (leftOrRight === LEFT) {
-    newPosition = oldPosition > 0 ? oldPosition - 0.5 : 0;
-  } else {
-    newPosition = oldPosition < 94.5 ? oldPosition + 0.5 : 94.5;
+function tick(game) {
+  moveShip(game);
+  moveShots(game);
+}
+
+function moveShip(game) {
+  const {playerPosition, left, right} = game.state;
+  let newPosition = null;
+  if (left && !right) {
+    newPosition = playerPosition > 0 ? playerPosition - 5 : 0;
+  } else if (right && !left) {
+    newPosition = playerPosition < 94.5 ? playerPosition + 5 : 94.5;
   }
-  return {
-    playerPosition: newPosition
+  if (newPosition !== null) {
+    game.setState({playerPosition: newPosition});
   }
+}
+
+function moveShots(game) {
+  const shots = JSON.parse(JSON.stringify(game.state.shots));
+  let newShots = shots
+    .filter(shot => shot.yPosition <= 0)
+    .map(shot => {
+      shot.yPosition = shot.yPosition - 3;
+      return shot
+    });
+  game.setState({shots: newShots});
 }
 
 class Invaders extends React.Component {
@@ -23,22 +40,34 @@ class Invaders extends React.Component {
     super();
     this.state = {
       score: 0,
-      playerPosition: 47
+      playerPosition: 45,
+      left: false,
+      right: false,
+      shots: []
     };
 
     document.body.onkeydown = (e) => {
       switch (e.which) {
         case LEFT:
-          this.setState(move.bind(null, LEFT));
-          break;
+          return this.setState({left: true});
         case RIGHT:
-          this.setState(move.bind(null, RIGHT));
-          break;
+          return this.setState({right: true});
         case FIRE:
-          break;
-        default: return
+          console.log('shooting!');
+          return this.setState({shots: [new Shot(this.state.playerPosition), ...this.state.shots]});
       }
-    }
+    };
+
+    document.body.onkeyup = (e) => {
+      switch (e.which) {
+        case LEFT:
+          return this.setState({left: false});
+        case RIGHT:
+          return this.setState({right: false});
+      }
+    };
+
+    this.gameLoop = setInterval(() => tick(this), 50);
   }
 
   render() {
