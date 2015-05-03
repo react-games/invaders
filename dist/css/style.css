@@ -1,0 +1,58 @@
+.page {
+  position: relative;
+  display: flex;
+}
+.page .board-wrapper {
+  height: 46rem;
+  width: 90%;
+  margin: 0 auto;
+  background-image: linear-gradient(top, #fff, #eee);
+  border: 2px solid #008000;
+  position: relative;
+}
+.page .board-wrapper:focus {
+  outline: none;
+}
+.page .board-wrapper .board-header {
+  font-family: monospace;
+  font-size: 2em;
+  background-color: #666;
+  color: #ddd;
+  height: 1.5em;
+  padding: 10px;
+  border-bottom: 2px solid #008000;
+}
+.page .board-wrapper .middle-ground {
+  position: relative;
+  height: 39em;
+  width: 100%;
+}
+.page .board-wrapper .middle-ground .shot {
+  position: absolute;
+  width: 2px;
+  height: 20px;
+  background-color: #f00;
+  backface-visibility: hidden;
+}
+.page .board-wrapper .player-row {
+  background-color: #ddd;
+  height: 3em;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-top: 2px solid #008000;
+  position: absolute;
+}
+.page .board-wrapper .player-row .inner-player-row {
+  position: relative;
+}
+.page .board-wrapper .player-row .inner-player-row .player {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 5px;
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 40px solid #aaa;
+}
+

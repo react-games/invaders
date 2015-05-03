@@ -1,5 +1,4 @@
 .idea
 *.swp
-dist
 node_modules
 
