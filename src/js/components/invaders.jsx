@@ -25,9 +25,7 @@ function moveShip(game) {
 
 function moveShots(game) {
   const shots = game.state.shots;
-  let newShots = shots
-    .filter(shot => shot.yPosition <= 0)
-    .map(shot => {return {x: shot.x, y: shot.y + 3}});
+  let newShots = shots.map(shot => {return {x: shot.x, y: shot.y + 3}});
   game.setState({shots: newShots});
 }
 
@@ -49,8 +47,7 @@ class Invaders extends React.Component {
         case RIGHT:
           return this.setState({right: true});
         case FIRE:
-          console.log('shooting!');
-          return this.setState({shots: [{x: this.state.playerPosition, y: 0}, ...this.state.shots]});
+          return this.setState({shots: this.state.shots.concat([{x: this.state.playerPosition, y: 0}])});
       }
     };
 
@@ -63,16 +60,13 @@ class Invaders extends React.Component {
       }
     };
 
-    this.gameLoop = setInterval(() => tick(this), 50);
+    this.gameLoop = setInterval(() => tick(this), 20);
   }
 
   render() {
     return (
       <div className='page'>
-        <Board
-          score={this.state.score}
-          playerPosition={this.state.playerPosition}
-          />
+        <Board {...this.state}/>
       </div>
     )
   }
