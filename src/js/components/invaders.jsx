@@ -25,7 +25,9 @@ function moveShip(game) {
 
 function moveShots(game) {
   const shots = game.state.shots;
-  let newShots = shots.map(shot => {return {x: shot.x, y: shot.y + 3}});
+  let newShots = shots
+    .filter(shot => shot.y < 700)
+    .map(shot => {return {x: shot.x, y: shot.y + 3}});
   game.setState({shots: newShots});
 }
 
@@ -47,7 +49,7 @@ class Invaders extends React.Component {
         case RIGHT:
           return this.setState({right: true});
         case FIRE:
-          return this.setState({shots: this.state.shots.concat([{x: this.state.playerPosition, y: 0}])});
+          return this.setState({shots: this.state.shots.concat([{x: this.state.playerPosition + 2, y: 0}])});
       }
     };
 
