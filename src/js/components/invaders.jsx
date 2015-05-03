@@ -1,5 +1,5 @@
 import React from 'react';
-import Board from './board';
+import Board from './board.jsx';
 
 const LEFT = 90; //z
 const RIGHT = 88; //x
@@ -11,7 +11,7 @@ function move(leftOrRight, prev) {
   if (leftOrRight === LEFT) {
     newPosition = oldPosition > 0 ? oldPosition - 0.5 : 0;
   } else {
-    newPosition = oldPosition < 95 ? oldPosition + 0.5 : 95;
+    newPosition = oldPosition < 94.5 ? oldPosition + 0.5 : 94.5;
   }
   return {
     playerPosition: newPosition
@@ -23,7 +23,7 @@ class Invaders extends React.Component {
     super();
     this.state = {
       score: 0,
-      playerPosition: 48
+      playerPosition: 47
     };
 
     document.body.onkeydown = (e) => {
