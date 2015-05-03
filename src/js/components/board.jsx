@@ -1,5 +1,5 @@
 import React from 'react';
-import Shots from './shots.jsx';
+import MiddleGround from './middle-ground.jsx';
 import PlayerPosition from './player.jsx';
 import Header from './header.jsx';
 
@@ -8,7 +8,7 @@ export default class Board extends React.Component {
     return (
       <div className='board-wrapper'>
         <Header score={this.props.score} />
-        <Shots shots={this.props.shots} />
+        <MiddleGround shots={this.props.shots} badGuys={this.props.badGuys} />
         <PlayerPosition playerPosition={this.props.playerPosition} />
       </div>
     )
