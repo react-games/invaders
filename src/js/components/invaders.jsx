@@ -1,34 +1,22 @@
 import React from 'react';
 import Board from './board.jsx';
-
-const LEFT = 90; //z
-const RIGHT = 88; //x
-const FIRE = 32; //space
+import {
+  moveShip,
+  moveShots,
+  moveBadGuys,
+  makeNewBadGuys,
+  detectSmashing,
+  keyDownHandler,
+  keyUpHandler
+  } from '../lib/util.js';
+import {LEFT, RIGHT, FIRE, LOOP_INTERVAL_MILLIS} from '../lib/constants.js';
 
 function tick(game) {
   moveShip(game);
   moveShots(game);
-}
-
-function moveShip(game) {
-  const {playerPosition, left, right} = game.state;
-  let newPosition = null;
-  if (left && !right) {
-    newPosition = playerPosition > 0 ? playerPosition - 5 : 0;
-  } else if (right && !left) {
-    newPosition = playerPosition < 94.5 ? playerPosition + 5 : 94.5;
-  }
-  if (newPosition !== null) {
-    game.setState({playerPosition: newPosition});
-  }
-}
-
-function moveShots(game) {
-  const shots = game.state.shots;
-  let newShots = shots
-    .filter(shot => shot.y < 700)
-    .map(shot => {return {x: shot.x, y: shot.y + 10}});
-  game.setState({shots: newShots});
+  detectSmashing(game);
+  moveBadGuys(game);
+  makeNewBadGuys(game);
 }
 
 class Invaders extends React.Component {
@@ -42,27 +30,10 @@ class Invaders extends React.Component {
       shots: []
     };
 
-    document.body.onkeydown = (e) => {
-      switch (e.which) {
-        case LEFT:
-          return this.setState({left: true});
-        case RIGHT:
-          return this.setState({right: true});
-        case FIRE:
-          return this.setState({shots: this.state.shots.concat([{x: this.state.playerPosition + 2, y: 0}])});
-      }
-    };
-
-    document.body.onkeyup = (e) => {
-      switch (e.which) {
-        case LEFT:
-          return this.setState({left: false});
-        case RIGHT:
-          return this.setState({right: false});
-      }
-    };
-
-    this.gameLoop = setInterval(() => tick(this), 20);
+    this.loopIntervalMillis = LOOP_INTERVAL_MILLIS;
+    document.body.onkeydown = keyDownHandler.bind(this);
+    document.body.onkeyup = keyUpHandler.bind(this);
+    this.gameLoop = setInterval(() => tick(this), this.loopIntervalMillis);
   }
 
   render() {
