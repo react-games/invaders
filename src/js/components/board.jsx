@@ -1,5 +1,7 @@
 import React from 'react';
 
+let key=-1;
+
 class Board extends React.Component {
   renderHeader() {
     return (
@@ -9,8 +11,18 @@ class Board extends React.Component {
     )
   }
 
-  renderBoardBody() {
+  renderShots() {
+    return this.props.shots.map(shot => {
+      return <div className='shot' style={{left: `${shot.x}%`, bottom: shot.y}} key={key++} />
+    });
+  }
 
+  renderBoardBody() {
+    return (
+      <div className='middle-ground'>
+        { this.renderShots() }
+      </div>
+    )
   }
 
   renderPlayerRow() {
@@ -27,6 +39,7 @@ class Board extends React.Component {
     return (
       <div className='board-wrapper'>
         { this.renderHeader() }
+        { this.renderBoardBody() }
         { this.renderPlayerRow() }
       </div>
     );
