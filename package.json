@@ -5,11 +5,19 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "js": "mkdir -p dist/js && watchify -d -e src/js/index.jsx -t babelify -o dist/js/app.js",
-    "css": "mkdir -p dist/css && stylus < src/stylus/style.styl > dist/css/style.css",
-    "html": "mkdir -p dist && cp src/html/index.html dist",
+    "make-dist": "mkdir -p dist/js dist/css",
+    "js": "browserify -d -e src/js/index.jsx -t babelify -o dist/js/app.js",
+    "watch-js": "watchify -d -e src/js/index.jsx -t babelify -o dist/js/app.js",
+    "css": "stylus < src/stylus/style.styl > dist/css/style.css",
+    "watch-css": "stylus -w < src/stylus/style.styl > dist/css/style.css",
+    "html": "cp src/html/index.html dist",
     "browser-sync": "(cd dist && browser-sync start --server --files \"js/app.js, index.html\")",
-    "watch": "npm run html & npm run css & npm run js & npm run browser-sync"
+    "compile": "npm run js & npm run css & npm run html",
+    "compile-watchers": "npm run watch-js & npm run watch-css & npm run html",
+    "build": "npm run clean && npm run make-dist && npm run compile",
+    "build-watchers": "npm run clean && npm run make-dist && npm run compile-watchers",
+    "watch": "npm run build-watchers && npm run browser-sync",
+    "start": "npm run watch"
   },
   "author": "",
   "license": "ISC",
