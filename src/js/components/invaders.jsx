@@ -11,6 +11,9 @@ import {
   } from '../lib/util.js';
 import {LEFT, RIGHT, FIRE, LOOP_INTERVAL_MILLIS} from '../lib/constants.js';
 
+let shotKey = 1;
+let badGuyKey = 1;
+
 function tick(game) {
   moveShip(game);
   moveShots(game);
@@ -28,7 +31,7 @@ export default class Invaders extends React.Component {
       left: false,
       right: false,
       shots: [],
-      badGuys: []
+      badGuys: [{x: 10, y: 400, key: 1}]
     };
 
     this.loopIntervalMillis = LOOP_INTERVAL_MILLIS;
