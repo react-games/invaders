@@ -21,17 +21,9 @@ export function moveShots(game) {
   game.setState({shots: newShots});
 }
 
-export function moveBadGuys(game) {
-
-}
-
-export function makeNewBadGuys(game) {
-
-}
-
-export function detectSmashing(game) {
-
-}
+export function moveBadGuys(game) { }
+export function makeNewBadGuys(game) { }
+export function detectSmashing(game) { }
 
 export function keyDownHandler(e) {
   switch (e.which) {
