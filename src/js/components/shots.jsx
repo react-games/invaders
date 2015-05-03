@@ -14,6 +14,6 @@ export default class Shots extends React.Component {
       <div className='middle-ground'>
         { this.renderShots() }
       </div>
-    );
+    )
   }
 }
