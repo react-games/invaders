@@ -34,6 +34,13 @@
   background-color: #f00;
   backface-visibility: hidden;
 }
+.page .board-wrapper .middle-ground .bad-guy {
+  position: absolute;
+  width: 30px;
+  height: 10px;
+  background: #ffa500;
+  backface-visibility: hidden;
+}
 .page .board-wrapper .player-row {
   background-color: #ddd;
   height: 3em;

@@ -1,29 +1,7 @@
-import {LEFT, RIGHT, FIRE} from './constants.js';
+import {LEFT, RIGHT, FIRE, PLAYER_RADIUS, SHOT_LIMIT, SHOT_POSITION_QUANTIZATION} from './constants.js';
 
-export function moveShip(game) {
-  const {playerPosition, left, right} = game.state;
-  let newPosition = null;
-  if (left && !right) {
-    newPosition = playerPosition > 0 ? playerPosition - 5 : 0;
-  } else if (right && !left) {
-    newPosition = playerPosition < 94.5 ? playerPosition + 5 : 94.5;
-  }
-  if (newPosition !== null) {
-    game.setState({playerPosition: newPosition});
-  }
-}
-
-export function moveShots(game) {
-  const shots = game.state.shots;
-  let newShots = shots
-    .filter(shot => shot.y < 700)
-    .map(shot => {return {x: shot.x, y: shot.y + 10}});
-  game.setState({shots: newShots});
-}
-
-export function moveBadGuys(game) { }
-export function makeNewBadGuys(game) { }
-export function detectSmashing(game) { }
+let shotKey = 1;
+let badGuyKey = 1;
 
 export function keyDownHandler(e) {
   switch (e.which) {
@@ -32,7 +10,7 @@ export function keyDownHandler(e) {
     case RIGHT:
       return this.setState({right: true});
     case FIRE:
-      return this.setState({shots: this.state.shots.concat([{x: this.state.playerPosition + 2.25, y: 0}])});
+      return fireShot(this);
   }
 }
 
@@ -43,4 +21,21 @@ export function keyUpHandler(e) {
     case RIGHT:
       return this.setState({right: false});
   }
+}
+
+export function fireShot(game) {
+  if (game.state.activeShots >= SHOT_LIMIT) {
+    return
+  }
+
+  const quantizedPosition = quantizeShotPosition(game.state.playerPosition);
+  let shots = game.state.shots;
+  let shotsAtOffset = (shots[quantizedPosition] || []).concat([{y: 0, key: ++shotKey}]);
+  shots[quantizedPosition] = shotsAtOffset;
+  game.setState({shots: shots});
+}
+
+function quantizeShotPosition(position) {
+  let shotPosition = position + PLAYER_RADIUS;
+  return SHOT_POSITION_QUANTIZATION * (Math.round(shotPosition/SHOT_POSITION_QUANTIZATION));
 }

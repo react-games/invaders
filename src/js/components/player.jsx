@@ -5,7 +5,7 @@ export default class PlayerPosition extends React.Component {
     return (
       <div className='player-row'>
         <div className='inner-player-row'>
-          <div className='player' style={{left: `${this.props.playerPosition}%`}}/>
+          <div className='player' style={{left: `${this.props.playerPosition}`}}/>
         </div>
       </div>
     )

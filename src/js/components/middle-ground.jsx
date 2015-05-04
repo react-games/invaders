@@ -1,18 +1,29 @@
 import React from 'react';
-
-let key=-1;
+import {extend} from 'lodash';
 
 export default class MiddleGround extends React.Component {
   renderShots() {
-    return this.props.shots.map(shot => {
-      return <div className='shot' style={{left: `${shot.x}%`, bottom: shot.y}} key={`shot-${key++}`} />
+    let shots = [];
+    Object.keys(this.props.shots).forEach(offset => {
+      this.props.shots[offset].map(shot => {
+        shots.push(
+          <div className='shot' style={{left: offset, bottom: shot.y}} key={`shot-${shot.key}`} />
+        );
+      });
     });
+    return shots
   }
 
   renderBadGuys() {
-    return this.props.badGuys.map(badGuy => {
-      return <div className='bad-guy' style={{left: `${badGuy.x}%`, bottom: badGuy.y}} key={`bad-guy-${key++}`} />
+    let badGuys = [];
+    Object.keys(this.props.badGuys).forEach(offset => {
+      this.props.badGuys[offset].map(badGuy => {
+        badGuys.push(
+          <div className='bad-guy' style={{left: offset, bottom: badGuy.y}} key={`bad-guy-${badGuy.key}`} />
+        );
+      });
     });
+    return badGuys;
   }
 
   render() {
