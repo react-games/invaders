@@ -4,7 +4,7 @@ import {keyDownHandler, keyUpHandler} from '../lib/util.js';
 import GameProcessor from '../lib/game-processor.js';
 import {LEFT, RIGHT, FIRE, LOOP_INTERVAL_MILLIS, SCREEN_WIDTH} from '../lib/constants.js';
 
-let initialBadGuyKey = -5;
+const INITIAL_BAD_GUY_KEY = -5;
 
 export default class Invaders extends React.Component {
   constructor() {
@@ -14,9 +14,8 @@ export default class Invaders extends React.Component {
       playerPosition: SCREEN_WIDTH/2,
       left: false,
       right: false,
-      shots: {},
-      badGuys: {20: [{y: 400, key: initialBadGuyKey}]},
-      activeShots: 0
+      shots: [],
+      badGuys: [{x: 20, y: 400, key: INITIAL_BAD_GUY_KEY, type: 'BAD_GUY'}, {x: 80, y: 200, key: INITIAL_BAD_GUY_KEY+1, type: 'BAD_GUY'}]
     };
 
     this.processor = new GameProcessor(this);

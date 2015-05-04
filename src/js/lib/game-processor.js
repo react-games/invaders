@@ -36,23 +36,16 @@ export default class GameProcessor {
   }
 
   moveShots() {
-    Object.keys(this.stateCopy.shots).forEach(offset => {
-      this.stateCopy.shots[offset] = this.stateCopy.shots[offset]
-        .filter(shot => shot.y < 700)
-        .map(shot => {
-          return {y: shot.y + SHOT_SPEED, key: shot.key}
-        });
-    });
+    this.stateCopy.shots = this.stateCopy.shots
+      .filter(shot => shot.y < 700)
+      .map(shot => {
+        return {x: shot.x, y: shot.y + SHOT_SPEED, key: shot.key, type: 'SHOT'}
+      });
     return this;
   }
 
   detectSmashing() {
-    // FIXME: this is bad.
-    // maybe use a min heap to check for collisions in order of lowest to highest bad guy
-    // also maybe just rethink this whole business. maybe shots should just be an array of
-    // coordinates sorted by x-offset? iono.
-    let {shots, badGuys} = this.stateCopy;
-
+    // TODO: think of a good way
     return this;
   }
 
