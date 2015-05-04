@@ -1,4 +1,4 @@
-import {SHOT_SPEED, PLAYER_SPEED, SCREEN_WIDTH} from './constants.js';
+import {SHOT_SPEED, PLAYER_SPEED, SCREEN_WIDTH, SHOT_POSITION_QUANTIZATION} from './constants.js';
 
 export default class GameProcessor {
   constructor(game) {
@@ -45,11 +45,12 @@ export default class GameProcessor {
   }
 
   detectSmashing() {
-    // TODO: think of a good way
-    // maybe assume that no two objects of the same type will occupy the same
-    // rectangle at the same time? Then maybe make an object where keys are `${item.x}-${item.y}`
-    // for items in shots | badGuys and values are the items. If there are ever keys with two
-    // matching objects, remove both items.
+    // Assume that no two objects of the same type will occupy the same
+    // rectangle at the same time. Make a map where keys are `${item.x}-${item.y}`
+    // for items in shots | badGuys and values are the items. If there are ever keys
+    // with two items, remove both items.
+    // Allow 'hits' to count from the edge of a badGuy to one SHOT_POSITION_QUANTIZATION
+    // over
     let collisionMap = {};
     this.stateCopy.shots.forEach(shot => {
       let key = `${shot.x}-${shot.y}`;
@@ -57,9 +58,14 @@ export default class GameProcessor {
     });
     this.stateCopy.badGuys.forEach(badGuy => {
       let key = `${badGuy.x}-${badGuy.y}`;
+      let keyToTheRight = `${badGuy.x + SHOT_POSITION_QUANTIZATION}-${badGuy.y}`;
       if (collisionMap[key]) {
         ++this.stateCopy.score;
         delete collisionMap[key];
+        return;
+      } else if (collisionMap[keyToTheRight]) {
+        ++this.stateCopy.score;
+        delete collisionMap[keyToTheRight];
         return;
       }
       collisionMap[key] = badGuy;
