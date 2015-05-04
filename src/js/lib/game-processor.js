@@ -46,6 +46,33 @@ export default class GameProcessor {
 
   detectSmashing() {
     // TODO: think of a good way
+    // maybe assume that no two objects of the same type will occupy the same
+    // rectangle at the same time? Then maybe make an object where keys are `${item.x}-${item.y}`
+    // for items in shots | badGuys and values are the items. If there are ever keys with two
+    // matching objects, remove both items.
+    let collisionMap = {};
+    this.stateCopy.shots.forEach(shot => {
+      let key = `${shot.x}-${shot.y}`;
+      collisionMap[key] = shot;
+    });
+    this.stateCopy.badGuys.forEach(badGuy => {
+      let key = `${badGuy.x}-${badGuy.y}`;
+      if (collisionMap[key]) {
+        delete collisionMap[key];
+        return;
+      }
+      collisionMap[key] = badGuy;
+    });
+    this.stateCopy.shots = [];
+    this.stateCopy.badGuys = [];
+    Object.keys(collisionMap).forEach(item => {
+      let value = collisionMap[item];
+      if (value.type === 'SHOT') {
+        this.stateCopy.shots.push(value);
+      } else {
+        this.stateCopy.badGuys.push(value);
+      }
+    });
     return this;
   }
 
@@ -58,7 +85,10 @@ export default class GameProcessor {
   }
 
   syncStateToGame() {
-    this.game.setState(this.stateCopy);
+    this.game.setState(() => {
+      return this.stateCopy;
+    });
+
     return this;
   }
 }
