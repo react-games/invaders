@@ -59,12 +59,9 @@ export default class GameProcessor {
     this.stateCopy.badGuys.forEach(badGuy => {
       let key = `${badGuy.x}-${badGuy.y}`;
       let keyToTheRight = `${badGuy.x + SHOT_POSITION_QUANTIZATION}-${badGuy.y}`;
-      if (collisionMap[key]) {
+      if (collisionMap[key] || collisionMap[keyToTheRight]) {
         ++this.stateCopy.score;
         delete collisionMap[key];
-        return;
-      } else if (collisionMap[keyToTheRight]) {
-        ++this.stateCopy.score;
         delete collisionMap[keyToTheRight];
         return;
       }
