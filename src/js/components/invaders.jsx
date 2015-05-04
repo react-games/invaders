@@ -15,7 +15,7 @@ export default class Invaders extends React.Component {
       left: false,
       right: false,
       shots: {},
-      badGuys: {20: [{y: 400, key: initialBadGuyKey}]},
+      badGuys: [{x: 20, y: 400, key: initialBadGuyKey}],
       activeShots: 0
     };
 

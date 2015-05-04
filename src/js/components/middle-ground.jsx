@@ -15,15 +15,11 @@ export default class MiddleGround extends React.Component {
   }
 
   renderBadGuys() {
-    let badGuys = [];
-    Object.keys(this.props.badGuys).forEach(offset => {
-      this.props.badGuys[offset].map(badGuy => {
-        badGuys.push(
-          <div className='bad-guy' style={{left: offset, bottom: badGuy.y}} key={`bad-guy-${badGuy.key}`} />
-        );
-      });
+    return this.props.badGuys.map(badGuy => {
+      return (
+        <div className='bad-guy' style={{left: badGuy.x, bottom: badGuy.y}} key={`bad-guy-${badGuy.key}`} />
+      )
     });
-    return badGuys;
   }
 
   render() {

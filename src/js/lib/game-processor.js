@@ -47,12 +47,17 @@ export default class GameProcessor {
   }
 
   detectSmashing() {
-    // FIXME: this is bad.
-    // maybe use a min heap to check for collisions in order of lowest to highest bad guy
-    // also maybe just rethink this whole business. maybe shots should just be an array of
-    // coordinates sorted by x-offset? iono.
-    let {shots, badGuys} = this.stateCopy;
-
+    // TODO: think of a good way
+    // maybe keep a map of badGuys something like:
+    // badGuys: {
+    //   offset1: {
+    //     [badGuy.y - SHOT_HEIGHT]: badGuy
+    //   }
+    // }
+    // or something?
+    const {shots, badGuys} = this.stateCopy;
+    let newShots = {};
+    let newBadGuys = {};
     return this;
   }
 
