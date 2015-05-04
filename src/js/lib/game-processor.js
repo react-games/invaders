@@ -36,28 +36,16 @@ export default class GameProcessor {
   }
 
   moveShots() {
-    Object.keys(this.stateCopy.shots).forEach(offset => {
-      this.stateCopy.shots[offset] = this.stateCopy.shots[offset]
-        .filter(shot => shot.y < 700)
-        .map(shot => {
-          return {y: shot.y + SHOT_SPEED, key: shot.key}
-        });
-    });
+    this.stateCopy.shots = this.stateCopy.shots
+      .filter(shot => shot.y < 700)
+      .map(shot => {
+        return {x: shot.x, y: shot.y + SHOT_SPEED, key: shot.key, type: 'SHOT'}
+      });
     return this;
   }
 
   detectSmashing() {
     // TODO: think of a good way
-    // maybe keep a map of badGuys something like:
-    // badGuys: {
-    //   offset1: {
-    //     [badGuy.y - SHOT_HEIGHT]: badGuy
-    //   }
-    // }
-    // or something?
-    const {shots, badGuys} = this.stateCopy;
-    let newShots = {};
-    let newBadGuys = {};
     return this;
   }
 

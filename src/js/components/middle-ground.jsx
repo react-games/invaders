@@ -1,17 +1,12 @@
 import React from 'react';
-import {extend} from 'lodash';
 
 export default class MiddleGround extends React.Component {
   renderShots() {
-    let shots = [];
-    Object.keys(this.props.shots).forEach(offset => {
-      this.props.shots[offset].map(shot => {
-        shots.push(
-          <div className='shot' style={{left: offset, bottom: shot.y}} key={`shot-${shot.key}`} />
-        );
-      });
+    return this.props.shots.map(shot => {
+      return (
+        <div className='shot' style={{left: shot.x, bottom: shot.y}} key={`shot-${shot.key}`} />
+      );
     });
-    return shots
   }
 
   renderBadGuys() {
