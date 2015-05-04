@@ -3,8 +3,8 @@
   display: flex;
 }
 .page .board-wrapper {
-  height: 46rem;
-  width: 90%;
+  height: 600px;
+  width: 800px;
   margin: 0 auto;
   background-image: linear-gradient(top, #fff, #eee);
   border: 2px solid #008000;
@@ -24,7 +24,7 @@
 }
 .page .board-wrapper .middle-ground {
   position: relative;
-  height: 39em;
+  height: 489px;
   width: 100%;
 }
 .page .board-wrapper .middle-ground .shot {

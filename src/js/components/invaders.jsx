@@ -15,7 +15,7 @@ export default class Invaders extends React.Component {
       left: false,
       right: false,
       shots: [],
-      badGuys: [{x: 20, y: 400, key: INITIAL_BAD_GUY_KEY, type: 'BAD_GUY'}, {x: 80, y: 200, key: INITIAL_BAD_GUY_KEY+1, type: 'BAD_GUY'}]
+      badGuys: [{x: 40, y: 400, key: INITIAL_BAD_GUY_KEY, type: 'BAD_GUY'}, {x: 100, y: 200, key: INITIAL_BAD_GUY_KEY+1, type: 'BAD_GUY'}]
     };
 
     this.processor = new GameProcessor(this);
