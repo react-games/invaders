@@ -37,7 +37,6 @@ export default class GameProcessor {
 
   moveShots() {
     Object.keys(this.stateCopy.shots).forEach(offset => {
-      console.log(offset);
       this.stateCopy.shots[offset] = this.stateCopy.shots[offset]
         .filter(shot => shot.y < 700)
         .map(shot => {
@@ -48,7 +47,12 @@ export default class GameProcessor {
   }
 
   detectSmashing() {
+    // FIXME: this is bad.
+    // maybe use a min heap to check for collisions in order of lowest to highest bad guy
+    // also maybe just rethink this whole business. maybe shots should just be an array of
+    // coordinates sorted by x-offset? iono.
     let {shots, badGuys} = this.stateCopy;
+
     return this;
   }
 

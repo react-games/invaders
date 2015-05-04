@@ -24,13 +24,15 @@ export function keyUpHandler(e) {
 }
 
 export function fireShot(game) {
-  if (game.state.activeShots < SHOT_LIMIT) {
-    const quantizedPosition = quantizeShotPosition(game.state.playerPosition);
-    let shots = game.state.shots;
-    let shotsAtOffset = (shots[quantizedPosition] || []).concat([{y: 0, key: ++shotKey}]);
-    shots[quantizedPosition] = shotsAtOffset;
-    game.setState({shots: shots});
+  if (game.state.activeShots >= SHOT_LIMIT) {
+    return
   }
+
+  const quantizedPosition = quantizeShotPosition(game.state.playerPosition);
+  let shots = game.state.shots;
+  let shotsAtOffset = (shots[quantizedPosition] || []).concat([{y: 0, key: ++shotKey}]);
+  shots[quantizedPosition] = shotsAtOffset;
+  game.setState({shots: shots});
 }
 
 function quantizeShotPosition(position) {
