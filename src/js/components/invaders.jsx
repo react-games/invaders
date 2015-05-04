@@ -1,43 +1,30 @@
 import React from 'react';
 import Board from './board.jsx';
-import {
-  moveShip,
-  moveShots,
-  moveBadGuys,
-  makeNewBadGuys,
-  detectSmashing,
-  keyDownHandler,
-  keyUpHandler
-  } from '../lib/util.js';
-import {LEFT, RIGHT, FIRE, LOOP_INTERVAL_MILLIS} from '../lib/constants.js';
+import {keyDownHandler, keyUpHandler} from '../lib/util.js';
+import GameProcessor from '../lib/game-processor.js';
+import {LEFT, RIGHT, FIRE, LOOP_INTERVAL_MILLIS, SCREEN_WIDTH} from '../lib/constants.js';
 
 let shotKey = 1;
 let badGuyKey = 1;
-
-function tick(game) {
-  moveShip(game);
-  moveShots(game);
-  detectSmashing(game);
-  moveBadGuys(game);
-  makeNewBadGuys(game);
-}
 
 export default class Invaders extends React.Component {
   constructor() {
     super();
     this.state = {
       score: 0,
-      playerPosition: 45,
+      playerPosition: SCREEN_WIDTH/2,
       left: false,
       right: false,
-      shots: [],
-      badGuys: [{x: 10, y: 400, key: 1}]
+      shots: {},
+      badGuys: {},
+      activeShots: 0
     };
 
+    this.processor = new GameProcessor(this);
     this.loopIntervalMillis = LOOP_INTERVAL_MILLIS;
     document.body.onkeydown = keyDownHandler.bind(this);
     document.body.onkeyup = keyUpHandler.bind(this);
-    this.gameLoop = setInterval(() => tick(this), this.loopIntervalMillis);
+    this.gameLoop = setInterval(() => this.processor.processTick(), this.loopIntervalMillis);
   }
 
   render() {
