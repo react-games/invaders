@@ -1,6 +1,15 @@
-import {SHOT_SPEED, PLAYER_SPEED, SCREEN_WIDTH, SHOT_POSITION_QUANTIZATION, BAD_GUY_DELAY} from './constants.js';
+import {
+  SHOT_SPEED,
+  PLAYER_SPEED,
+  SCREEN_WIDTH,
+  SHOT_POSITION_QUANTIZATION,
+  BAD_GUY_DELAY,
+  BAD_GUY_PLACEHOLDERS
+} from './constants.js';
 
-let badGuyMoveDelay = 0;
+let badGuyMoveTicker = 0;
+let makeNewBadGuyRowTicker = 0;
+let badGuyKey = 1;
 
 export default class GameProcessor {
   constructor(game) {
@@ -87,7 +96,7 @@ export default class GameProcessor {
   }
 
   moveBadGuys() {
-    if ((++badGuyMoveDelay)%BAD_GUY_DELAY === 0) {
+    if ((++badGuyMoveTicker)%BAD_GUY_DELAY === 0) {
       this.stateCopy.badGuys = this.stateCopy.badGuys
         .filter(badGuy => badGuy.y > 0)
         .map(badGuy => {
@@ -98,6 +107,18 @@ export default class GameProcessor {
   }
 
   makeNewBadGuys() {
+    if ((++makeNewBadGuyRowTicker)%(BAD_GUY_DELAY * 5)=== 0) {
+      let newBadGuyRow = BAD_GUY_PLACEHOLDERS
+        .map(offset => {
+          return {
+            x: 40 * offset,
+            y: 460,
+            key: `bad-guy-${++badGuyKey}`,
+            type: 'BAD_GUY'
+          }
+        });
+      this.stateCopy.badGuys = this.stateCopy.badGuys.concat(newBadGuyRow);
+    }
     return this;
   }
 
