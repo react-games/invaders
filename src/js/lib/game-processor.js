@@ -13,6 +13,18 @@ let badGuyKey = 1;
 let badGuyWave = 1;
 let movingRight = true;
 
+function updateMovingState() {
+  if (movingRight) {
+    if (++badGuyWave === 6) {
+      movingRight = false;
+    }
+  } else {
+    if (--badGuyWave === 0) {
+      movingRight = true;
+    }
+  }
+}
+
 export default class GameProcessor {
   constructor(game) {
     this.game = game;
@@ -110,15 +122,7 @@ export default class GameProcessor {
 
   makeNewBadGuys() {
     if ((++makeNewBadGuyRowTicker)%(BAD_GUY_DELAY * 3) === 0) {
-      if (movingRight) {
-        if (++badGuyWave === 6) {
-          movingRight = false;
-        }
-      } else {
-        if (--badGuyWave === 0) {
-          movingRight = true;
-        }
-      }
+      updateMovingState();
       let newBadGuyRow = BAD_GUY_PLACEHOLDERS
         .map(offset => {
           return {
