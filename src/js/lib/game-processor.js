@@ -10,6 +10,8 @@ import {
 let badGuyMoveTicker = 0;
 let makeNewBadGuyRowTicker = 0;
 let badGuyKey = 1;
+let badGuyWave = 1;
+let movingRight = true;
 
 export default class GameProcessor {
   constructor(game) {
@@ -107,11 +109,20 @@ export default class GameProcessor {
   }
 
   makeNewBadGuys() {
-    if ((++makeNewBadGuyRowTicker)%(BAD_GUY_DELAY * 5)=== 0) {
+    if ((++makeNewBadGuyRowTicker)%(BAD_GUY_DELAY * 3) === 0) {
+      if (movingRight) {
+        if (++badGuyWave === 6) {
+          movingRight = false;
+        }
+      } else {
+        if (--badGuyWave === 0) {
+          movingRight = true;
+        }
+      }
       let newBadGuyRow = BAD_GUY_PLACEHOLDERS
         .map(offset => {
           return {
-            x: 40 * offset,
+            x: 60 * offset + badGuyWave * 20,
             y: 460,
             key: `bad-guy-${++badGuyKey}`,
             type: 'BAD_GUY'
