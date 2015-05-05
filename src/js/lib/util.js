@@ -8,8 +8,6 @@ export function keyDownHandler(e) {
       return this.setState({left: true});
     case RIGHT:
       return this.setState({right: true});
-    case FIRE:
-      return fireShot(this);
     case PAUSE:
       return this.playPause();
   }
@@ -21,6 +19,8 @@ export function keyUpHandler(e) {
       return this.setState({left: false});
     case RIGHT:
       return this.setState({right: false});
+    case FIRE:
+      return fireShot(this);
   }
 }
 
