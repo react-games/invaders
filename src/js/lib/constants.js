@@ -2,6 +2,7 @@ const CONSTANTS = {
   LEFT: 90, //z
   RIGHT: 88, //x
   FIRE: 32, //space
+  PAUSE: 27, // escape
   LOOP_INTERVAL_MILLIS: 20,
   PLAYER_SPEED: 20,
   SHOT_SPEED: 10,

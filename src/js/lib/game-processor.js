@@ -39,7 +39,7 @@ export default class GameProcessor {
 
   moveShots() {
     this.stateCopy.shots = this.stateCopy.shots
-      .filter(shot => shot.y < 489)
+      .filter(shot => shot.y < 469)
       .map(shot => {
         return {x: shot.x, y: shot.y + SHOT_SPEED, key: shot.key, type: 'SHOT'}
       });
@@ -52,7 +52,7 @@ export default class GameProcessor {
     // for items in shots | badGuys and values are the items. If there are ever keys
     // with two items, remove both items.
     // Allow 'hits' to count from the edge of a badGuy to one SHOT_POSITION_QUANTIZATION
-    // over
+    // over, one SHOT_SPEED up, and over one SHOT_POSITION_QUANTIZATION up one SHOT_SPEED
     let collisionMap = {};
     this.stateCopy.shots.forEach(shot => {
       let key = `${shot.x}-${shot.y}`;
@@ -105,7 +105,6 @@ export default class GameProcessor {
     this.game.setState(() => {
       return this.stateCopy;
     });
-
     return this;
   }
 }

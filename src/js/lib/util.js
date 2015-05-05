@@ -1,4 +1,4 @@
-import {LEFT, RIGHT, FIRE, PLAYER_RADIUS, SHOT_LIMIT, SHOT_POSITION_QUANTIZATION} from './constants.js';
+import {LEFT, RIGHT, FIRE, PAUSE, PLAYER_RADIUS, SHOT_LIMIT, SHOT_POSITION_QUANTIZATION} from './constants.js';
 
 let shotKey = 1;
 let badGuyKey = 1;
@@ -11,6 +11,8 @@ export function keyDownHandler(e) {
       return this.setState({right: true});
     case FIRE:
       return fireShot(this);
+    case PAUSE:
+      return this.playPause();
   }
 }
 
