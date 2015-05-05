@@ -19,10 +19,9 @@ export default class Invaders extends React.Component {
     };
 
     this.processor = new GameProcessor(this);
-    this.loopIntervalMillis = LOOP_INTERVAL_MILLIS;
     document.body.onkeydown = keyDownHandler.bind(this);
     document.body.onkeyup = keyUpHandler.bind(this);
-    this.gameLoop = setInterval(() => this.processor.processTick(), this.loopIntervalMillis);
+    this.gameLoop = setInterval(() => this.processor.processTick(), LOOP_INTERVAL_MILLIS);
   }
 
   render() {

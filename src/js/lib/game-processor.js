@@ -1,4 +1,6 @@
-import {SHOT_SPEED, PLAYER_SPEED, SCREEN_WIDTH, SHOT_POSITION_QUANTIZATION} from './constants.js';
+import {SHOT_SPEED, PLAYER_SPEED, SCREEN_WIDTH, SHOT_POSITION_QUANTIZATION, BAD_GUY_DELAY} from './constants.js';
+
+let badGuyMoveDelay = 0;
 
 export default class GameProcessor {
   constructor(game) {
@@ -37,7 +39,7 @@ export default class GameProcessor {
 
   moveShots() {
     this.stateCopy.shots = this.stateCopy.shots
-      .filter(shot => shot.y < 700)
+      .filter(shot => shot.y < 489)
       .map(shot => {
         return {x: shot.x, y: shot.y + SHOT_SPEED, key: shot.key, type: 'SHOT'}
       });
@@ -59,10 +61,14 @@ export default class GameProcessor {
     this.stateCopy.badGuys.forEach(badGuy => {
       let key = `${badGuy.x}-${badGuy.y}`;
       let keyToTheRight = `${badGuy.x + SHOT_POSITION_QUANTIZATION}-${badGuy.y}`;
-      if (collisionMap[key] || collisionMap[keyToTheRight]) {
+      let keyToTheUp = `${badGuy.x}-${badGuy.y + SHOT_SPEED}`;
+      let keyToTheUpRight = `${badGuy.x + SHOT_POSITION_QUANTIZATION}-${badGuy.y + SHOT_SPEED}`;
+      if (collisionMap[key] || collisionMap[keyToTheRight] || collisionMap[keyToTheUp] || collisionMap[keyToTheUpRight]) {
         ++this.stateCopy.score;
         delete collisionMap[key];
         delete collisionMap[keyToTheRight];
+        delete collisionMap[keyToTheUp];
+        delete collisionMap[keyToTheUpRight];
         return;
       }
       collisionMap[key] = badGuy;
@@ -81,6 +87,13 @@ export default class GameProcessor {
   }
 
   moveBadGuys() {
+    if ((++badGuyMoveDelay)%BAD_GUY_DELAY === 0) {
+      this.stateCopy.badGuys = this.stateCopy.badGuys
+        .filter(badGuy => badGuy.y > 0)
+        .map(badGuy => {
+          return {x: badGuy.x, y: badGuy.y - 10, key: badGuy.key, type: 'BAD_GUY'}
+        });
+    }
     return this;
   }
 
