@@ -5,7 +5,7 @@ export default class Header extends React.Component {
     return (
       <div className='board-header'>
         <span className='score'>{`SCORE: ${this.props.score}`}</span>
-        <span className='instructions'>{'z - left, x - right, < spacebar > - shoot, < esc > - pause'}</span>
+        <span className='instructions'>{'z - left, x - right,  <shift> - shoot,  <spacebar> - pause'}</span>
       </div>
     )
   }
