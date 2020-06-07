@@ -6,6 +6,8 @@ import Header from './header.jsx';
 
 export default class Board extends React.Component {
   render() {
+  var p=this.props.timer?1:0;
+  if(!this.props.gameOver){
     return (
       <div className='board-wrapper'>
         <Header score={this.props.score} />
@@ -14,5 +16,14 @@ export default class Board extends React.Component {
         <PlayerPosition playerPosition={this.props.playerPosition} />
       </div>
     )
+  }
+  else{
+  return (
+      <div className='board-wrapper'>
+        <MiddleGround shots={this.props.shots} badGuys={this.props.badGuys} score={this.props.score} 
+        gameOver={this.props.gameOver}/>
+      </div>
+      )
+  }
   }
 }
